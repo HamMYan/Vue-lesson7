@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 7</title>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            border-radius: 5px;
+            padding: 10px;
+            margin: 2px;
+            background-color: green;
+            display: inline;
+        }
+
+        .impClass {
+            background-color: red;
+            font-weight: bold;
+            display: inline;
+            padding: 10px;
+        }
+
+        #ulFound li {
+            text-decoration: line-through;
+            background-color: rgb(230, 230, 230);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form @:submit.prevent="addItem">
+            <p>Add item</p>
+            <p>Item name: <input type="text" v-model="itemName" required></p>
+            <p>How many: <input type="number" v-model="itemNumber"></p>
+            Important?
+            <label>
+                <input type="checkbox" v-model="itemImportant">
+                {{ itemImportant }}
+            </label><br><br>
+
+            <button type="submit">Add item</button>
+        </form>
+
+        <span>Shopping list:</span>
+        <ul id="ulToFind">
+            <li v-for="item in shoppingList"
+                v-bind:class="{ impClass: item.important }"
+                v-on:click="item.found=!item.found"
+                v-show="!item.found">
+                  {{ item.name }}, {{ item.number}}
+            </li>
+          </ul>
+          <ul id="ulFound">
+            <li v-for="item in shoppingList"
+                v-bind:class="{ impClass: item.important }"
+                v-on:click="item.found=!item.found"
+                v-show="item.found">
+                  {{ item.name }}, {{ item.number}}
+            </li>
+          </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
